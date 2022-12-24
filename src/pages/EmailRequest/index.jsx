@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Index';
 import EmailContext from '../../components/emailContext/EmailContext';
 import EmailInput from '../../components/emailInput';
-import { DPIconAddIcon, DPIconSplitLogo } from '../../icons';
+import { DPIconAddIcon, DPIconClose, DPIconSplitLogo } from '../../icons';
 import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
 const EmailRequest = () => {
@@ -19,7 +19,7 @@ const EmailRequest = () => {
       <EmailList>
         {Object.keys(emailInput).map((e, index) => (
           <p key={index} className="list-item">
-            {emailInput[e]}
+            {emailInput[e]} <DPIconClose />
           </p>
         ))}
       </EmailList>
