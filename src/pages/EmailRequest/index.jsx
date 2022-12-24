@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Index';
 import EmailContext from '../../components/emailContext/EmailContext';
 import EmailInput from '../../components/emailInput';
-import { DPIconAddIcon, DPIconSplitLogo } from '../../icons';
+import { DPIconAddIcon, DPIconClose, DPIconSplitLogo } from '../../icons';
 import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
 const EmailRequest = () => {
@@ -21,6 +21,9 @@ const EmailRequest = () => {
         {Object.keys(emailInput).map((e, index) => (
           <p key={index} className="list-item">
             {emailInput[e]}
+            <span>
+              <DPIconClose />
+            </span>
           </p>
         ))}
       </EmailList>
@@ -81,6 +84,12 @@ const EmailList = styled.div`
 
   .list-item {
     margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  span {
+    margin-top: 0.7rem;
   }
 `;
 
