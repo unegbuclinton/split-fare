@@ -41,7 +41,7 @@ const EmailRequest = () => {
 export default EmailRequest;
 
 const Wrapper = styled.div`
-  padding: 5.2rem 3rem;
+  padding: 5.2rem 3rem 1rem 3rem;
 
   .logo {
     display: flex;
