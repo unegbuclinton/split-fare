@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
 import EmailContext from '../../components/emailContext/EmailContext';
@@ -32,7 +33,9 @@ const EmailRequest = () => {
       <EmailInput show={showInputBox} />
 
       <Footer>
-        <Button text="Split Payment" />
+        <Link to="/approval">
+          <Button text="Split Payment" />
+        </Link>
       </Footer>
     </Wrapper>
   );
@@ -41,7 +44,9 @@ const EmailRequest = () => {
 export default EmailRequest;
 
 const Wrapper = styled.div`
-  padding: 5.2rem 3rem;
+  max-width: 55rem;
+  margin: 0 auto;
+  padding: 5.2rem 3rem 1rem 3rem;
 
   .logo {
     display: flex;

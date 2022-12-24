@@ -4,9 +4,8 @@ import Button from '../Button/Index';
 import EmailContext from '../emailContext/EmailContext';
 
 const EmailInput = ({ className, show }) => {
-  const { addEmail, emailInput, inputEmail, input } = useContext(EmailContext);
+  const { addEmail, inputEmail, input } = useContext(EmailContext);
 
-  console.log({ emailInput, input });
   return (
     <Wrapper className={className} show={show}>
       <InputField
@@ -23,10 +22,10 @@ const EmailInput = ({ className, show }) => {
 export default EmailInput;
 
 const Wrapper = styled.div`
-  height: ${({ show }) => (show ? '100%' : '0')};
+  height: ${({ show }) => (show ? '30vh' : '0')};
+  transition: height 0.2s ease-in-out;
   overflow: ${({ show }) => (show ? 'auto' : 'hidden')};
   margin-top: 2rem;
-  /* transition: height 0.2s ease-in; */
 `;
 
 const InputField = styled.input`

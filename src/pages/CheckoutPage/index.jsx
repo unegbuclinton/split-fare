@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
 import CheckoutInput from '../../components/CheckoutInpIt';
@@ -22,7 +23,9 @@ const Checkout = () => {
       <PaymentCard />
 
       <Footer>
-        <Button text="Pay 100.00 $" />
+        <Link to="/email-request">
+          <Button text="Pay 100.00 $" />
+        </Link>
       </Footer>
     </Wrapper>
   );
@@ -31,6 +34,8 @@ const Checkout = () => {
 export default Checkout;
 
 const Wrapper = styled.div`
+  max-width: 55rem;
+  margin: 0 auto;
   position: relative;
   padding: 5.2rem 1.9rem;
   height: 100vh;
