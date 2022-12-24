@@ -6,3 +6,4 @@ export { ReactComponent as DPIconOpay } from '../icons/svgs/Opay.svg';
 export { ReactComponent as DPIconSplitLogo } from '../icons/svgs/split-logo.svg';
 export { ReactComponent as DPIconSplit } from '../icons/svgs/split.svg';
 export { ReactComponent as DPIconStripe } from '../icons/svgs/Stripe.svg';
+export { ReactComponent as DPIconApproved } from '../icons/svgs/success.svg';
