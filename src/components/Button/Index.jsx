@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FONTWEIGHTS } from '../../pages/CheckoutPage/constatnts/font-size';
 
-const Button = ({ text }) => {
-  return <ButtonComp>{text}</ButtonComp>;
+const Button = ({ text, onClick }) => {
+  return <ButtonComp onClick={onClick}>{text}</ButtonComp>;
 };
 
 export default Button;
