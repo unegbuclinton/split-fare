@@ -14,6 +14,7 @@ export function AddEmailContext({ children }) {
     setInput('');
   };
 
+  //   const removeEmail = () => {};
   return (
     <EmailContext.Provider value={{ addEmail, inputEmail, emailInput, input }}>
       {children}

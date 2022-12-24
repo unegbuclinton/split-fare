@@ -19,7 +19,10 @@ const EmailRequest = () => {
       <EmailList>
         {Object.keys(emailInput).map((e, index) => (
           <p key={index} className="list-item">
-            {emailInput[e]} <DPIconClose />
+            {emailInput[e]}
+            <span>
+              <DPIconClose />
+            </span>
           </p>
         ))}
       </EmailList>
@@ -76,6 +79,12 @@ const EmailList = styled.div`
 
   .list-item {
     margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  span {
+    margin-top: 0.7rem;
   }
 `;
 
