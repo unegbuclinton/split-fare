@@ -1,12 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
-import {
-  DPIconAddIcon,
-  DPIconClose,
-  DPIconSplitLogo,
-  DPIcoropDown,
-} from '../../icons';
+import { DPIconAddIcon, DPIconClose, DPIconSplitLogo } from '../../icons';
 import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
 const EmailRequest = () => {
