@@ -4,7 +4,7 @@ const EmailContext = createContext();
 
 export function AddEmailContext({ children }) {
   const [input, setInput] = useState('');
-  const [emailInput, setEmailInput] = useState([]);
+  const [emailInput, setEmailInput] = useState([{ email: '' }]);
 
   const inputEmail = (e) => {
     setInput(e.target.value);
