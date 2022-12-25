@@ -1,24 +1,52 @@
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
+// import { postData } from '../../components/services';
 import { DPIconAddIcon, DPIconClose, DPIconSplitLogo } from '../../icons';
 import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
 const EmailRequest = () => {
   const [formValues, setFormValues] = useState([{ email: '' }]);
   const inputField = useRef(null);
+  const navigate = useNavigate();
 
-  const onBlurChange = (c) => {
-    if (c.value === '') {
-      console.log('empty');
-    } else {
-      console.log('great');
+  const postData = async () => {
+    let values = formValues.map((e) => {
+      return e.email;
+    });
+    let body = {
+      owner: 'owner@gmail.com',
+      emails: values,
+      storeId: 'abc123',
+      cart: [
+        {
+          id: '12321341',
+          quantity: 2,
+        },
+        {
+          id: '4903850',
+          quantity: 1,
+        },
+      ],
+    };
+    try {
+      const response = await axios.post(
+        'https://splitfare-test.onrender.com/createTransaction',
+        body
+      );
+      localStorage.setItem('urlKey', JSON.stringify(response.data.urlId));
+      navigate('/checkout');
+    } catch (error) {
+      return error;
     }
   };
 
   let handleChange = (i, e) => {
+    const { name, value } = e.target;
     let newFormValues = [...formValues];
-    newFormValues[i] = e.target.value;
+    newFormValues[i][name] = value;
     setFormValues(newFormValues);
   };
 
@@ -27,7 +55,6 @@ const EmailRequest = () => {
   };
 
   let removeFormFields = (i) => {
-    console.log(i);
     let newFormValues = [...formValues];
     newFormValues.splice(i, 1);
     setFormValues(newFormValues);
@@ -35,7 +62,7 @@ const EmailRequest = () => {
 
   let handleSubmit = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(formValues));
+    postData();
   };
 
   return (
@@ -50,22 +77,25 @@ const EmailRequest = () => {
         <p className="add-text">Add Email</p>
       </AddEmail>
 
-      {formValues?.map((__, index) => (
+      {formValues?.map((singleEmail, index) => (
         <div className="input-wrapper" key={index}>
           <InputField
             placeholder="Enter email"
             name="email"
             type="email"
+            id="email"
+            value={singleEmail.email}
+            required
             ref={inputField}
             onChange={(e) => handleChange(index, e)}
-            onBlur={() => onBlurChange(inputField.current)}
+            // onBlur={() => onBlurChange(inputField.current)}
           />
-          {index ? (
+          {formValues.length > 1 && (
             <DPIconClose
               className="cancel"
               onClick={() => removeFormFields(index)}
             />
-          ) : null}
+          )}
         </div>
       ))}
 

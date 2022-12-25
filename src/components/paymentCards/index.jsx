@@ -1,14 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { PaymentMethod } from '../../utilities/PaymentMethods';
+import {
+  DPIconBitcoin,
+  DPIconOpay,
+  DPIconSplit,
+  DPIconStripe,
+} from '../../icons';
 
-const PaymentCard = ({ color, icon }) => {
+const PaymentCard = () => {
+  const [url, setUrl] = useState('');
+  const PaymentMethod = [
+    { icon: <DPIconOpay />, color: '#000' },
+    {
+      icon: <DPIconStripe />,
+      color: '#6461FC',
+      link: `https://splitfare-test.onrender.com/joinTransaction/${url}`,
+    },
+    { icon: <DPIconSplit />, color: '#F8F8F8' },
+    { icon: <DPIconBitcoin />, color: '#FF7E00' },
+  ];
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('urlKey'));
+    if (items) {
+      setUrl(items);
+    }
+  }, []);
+
   return (
     <Wrapper>
-      {PaymentMethod?.map(({ icon, color }, idx) => (
-        <Card color={color} key={idx}>
-          {icon}
-        </Card>
+      {PaymentMethod?.map(({ icon, color, link }, idx) => (
+        <a href={link}>
+          <Card color={color} key={idx} target="_blank">
+            {icon}
+          </Card>
+        </a>
       ))}
     </Wrapper>
   );
