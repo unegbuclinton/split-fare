@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const PaymentStatus = () => {
   return (
     <Wrapper>
-      <h1>All Pahyment have been completed </h1>
+      <h1>All Payment have been completed </h1>
     </Wrapper>
   );
 };
