@@ -1,15 +1,15 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
-// import { postData } from '../../components/services';
 import { DPIconAddIcon, DPIconClose, DPIconSplitLogo } from '../../icons';
 import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
 const EmailRequest = () => {
   const [formValues, setFormValues] = useState([{ email: '' }]);
-  const inputField = useRef(null);
+  const [errorMessage, setErrorMessage] = useState('This Field is required');
+  const [focused, setFocused] = useState(false);
   const navigate = useNavigate();
 
   const postData = async () => {
@@ -50,6 +50,15 @@ const EmailRequest = () => {
     setFormValues(newFormValues);
   };
 
+  let handleFocus = () => {
+    setErrorMessage('It should be a valid Email');
+    setFocused(true);
+  };
+  let handleBlur = (e) => {
+    setErrorMessage('This Field is required');
+    setFocused(true);
+  };
+
   let addFormFields = () => {
     setFormValues([...formValues, { email: '' }]);
   };
@@ -78,18 +87,21 @@ const EmailRequest = () => {
       </AddEmail>
 
       {formValues?.map((singleEmail, index) => (
-        <div className="input-wrapper" key={index}>
-          <InputField
-            placeholder="Enter email"
-            name="email"
-            type="email"
-            id="email"
-            value={singleEmail.email}
-            required
-            ref={inputField}
-            onChange={(e) => handleChange(index, e)}
-            // onBlur={() => onBlurChange(inputField.current)}
-          />
+        <div className="input-container" key={index}>
+          <div className="input-wrapper">
+            <InputField
+              placeholder="Enter email"
+              name="email"
+              type="email"
+              id="email"
+              value={singleEmail.email}
+              required={true}
+              onFocus={handleFocus}
+              onChange={(e) => handleChange(index, e)}
+              onBlur={handleBlur}
+            />
+            {focused && <span>{errorMessage}</span>}
+          </div>
           {formValues.length > 1 && (
             <DPIconClose
               className="cancel"
@@ -118,14 +130,24 @@ const Wrapper = styled.form`
     justify-content: center;
   }
 
-  .input-wrapper {
+  .input-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .input-wrapper {
+      flex: 70%;
+    }
   }
 
   .cancel {
     margin-top: 3rem;
+  }
+  span {
+    font-size: ${FONTSIZES.small};
+    padding: 1rem;
+    color: red;
+    display: none;
   }
 `;
 
@@ -165,4 +187,12 @@ const InputField = styled.input`
   margin-top: 3.2rem;
   padding: 1rem;
   font-size: 2rem;
+
+  &:invalid {
+    border: 1px solid red;
+  }
+
+  &:invalid ~ span {
+    display: block;
+  }
 `;

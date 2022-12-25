@@ -5,7 +5,9 @@ import {
   FONTWEIGHTS,
 } from '../../pages/CheckoutPage/constatnts/font-size';
 
-const PendingComponent = () => {
+const PendingComponent = ({ data }) => {
+  const { invites } = data;
+
   return (
     <Wrapper>
       <Header>
@@ -14,21 +16,15 @@ const PendingComponent = () => {
         <p>Status</p>
       </Header>
       <TableContainer>
-        <TableData>
-          <p>Willy</p>
-          <p>3,000</p>
-          <p>Paid</p>
-        </TableData>
-        <TableData>
-          <p>Willy</p>
-          <p>3,000</p>
-          <p>Paid</p>
-        </TableData>
-        <TableData>
-          <p>Willy</p>
-          <p>3,000</p>
-          <p>Paid</p>
-        </TableData>
+        {Object.keys(invites).map((i, index) => {
+          return (
+            <TableData>
+              <p key={index}>{invites[i]}</p>
+              <p>3,000</p>
+              <p>paid</p>
+            </TableData>
+          );
+        })}
       </TableContainer>
     </Wrapper>
   );
@@ -48,7 +44,7 @@ const Header = styled.div`
   margin-bottom: 2rem;
 
   p {
-    font-size: ${FONTSIZES.base};
+    font-size: ${FONTSIZES.small};
     color: #fff;
     font-weight: ${FONTWEIGHTS.bold};
   }

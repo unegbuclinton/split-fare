@@ -40,7 +40,7 @@ const TabWrapper = styled.div`
 const TabContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   padding: 3.204rem 2.5rem 1.6rem;
   overflow-x: auto;
   .container {
