@@ -1,38 +1,81 @@
-import React, { useContext, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
-import EmailContext from '../../components/emailContext/EmailContext';
-import EmailInput from '../../components/emailInput';
-import { DPIconAddIcon, DPIconSplitLogo } from '../../icons';
+import {
+  DPIconAddIcon,
+  DPIconClose,
+  DPIconSplitLogo,
+  DPIcoropDown,
+} from '../../icons';
 import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
 const EmailRequest = () => {
-  const [showInputBox, setShowInputBox] = useState(false);
-  const { emailInput } = useContext(EmailContext);
+  const [formValues, setFormValues] = useState([{ email: '' }]);
+  const inputField = useRef(null);
+
+  const onBlurChange = (c) => {
+    if (c.value === '') {
+      console.log('empty');
+    } else {
+      console.log('great');
+    }
+  };
+
+  let handleChange = (i, e) => {
+    let newFormValues = [...formValues];
+    newFormValues[i] = e.target.value;
+    setFormValues(newFormValues);
+  };
+
+  let addFormFields = () => {
+    setFormValues([...formValues, { email: '' }]);
+  };
+
+  let removeFormFields = (i) => {
+    console.log(i);
+    let newFormValues = [...formValues];
+    newFormValues.splice(i, 1);
+    setFormValues(newFormValues);
+  };
+
+  let handleSubmit = (event) => {
+    event.preventDefault();
+    alert(JSON.stringify(formValues));
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onSubmit={handleSubmit}>
       <div className="logo">
         <DPIconSplitLogo />
       </div>
       <SubText>Add email of other parties to split payment</SubText>
 
-      <EmailList>
-        {Object.keys(emailInput).map((e, index) => (
-          <p key={index} className="list-item">
-            {emailInput[e]}
-          </p>
-        ))}
-      </EmailList>
-
-      <AddEmail onClick={() => setShowInputBox((prev) => !prev)}>
+      <AddEmail onClick={() => addFormFields()}>
         <DPIconAddIcon />
         <p className="add-text">Add Email</p>
       </AddEmail>
 
-      <EmailInput show={showInputBox} />
+      {formValues?.map((__, index) => (
+        <div className="input-wrapper" key={index}>
+          <InputField
+            placeholder="Enter email"
+            name="email"
+            type="email"
+            ref={inputField}
+            onChange={(e) => handleChange(index, e)}
+            onBlur={() => onBlurChange(inputField.current)}
+          />
+          {index ? (
+            <DPIconClose
+              className="cancel"
+              onClick={() => removeFormFields(index)}
+            />
+          ) : null}
+        </div>
+      ))}
 
       <Footer>
-        <Button text="Split Payment" />
+        <Button type="submit" text="Split Payment" />
       </Footer>
     </Wrapper>
   );
@@ -40,12 +83,24 @@ const EmailRequest = () => {
 
 export default EmailRequest;
 
-const Wrapper = styled.div`
-  padding: 5.2rem 3rem;
+const Wrapper = styled.form`
+  max-width: 55rem;
+  margin: 0 auto;
+  padding: 5.2rem 3rem 1rem 3rem;
 
   .logo {
     display: flex;
     justify-content: center;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cancel {
+    margin-top: 3rem;
   }
 `;
 
@@ -68,16 +123,6 @@ const AddEmail = styled.div`
     font-size: 1.7rem;
   }
 `;
-const EmailList = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: ${FONTSIZES.lg};
-  margin-top: 2rem;
-
-  .list-item {
-    margin-bottom: 1.2rem;
-  }
-`;
 
 const Footer = styled.footer`
   width: 100%;
@@ -85,4 +130,13 @@ const Footer = styled.footer`
   border-top: 1px solid #e5e5e5;
   padding-top: 1rem;
   margin-top: 3rem;
+`;
+
+const InputField = styled.input`
+  width: 90%;
+  border: 1px solid rgba(217, 217, 217, 0.49);
+  height: 4.8rem;
+  border-radius: 0.9rem;
+  margin-top: 3.2rem;
+  padding: 1rem;
 `;
