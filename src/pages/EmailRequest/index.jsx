@@ -1,4 +1,6 @@
-import React, { useRef, useState } from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
 import { DPIconAddIcon, DPIconClose, DPIconSplitLogo } from '../../icons';
@@ -6,20 +8,55 @@ import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
 const EmailRequest = () => {
   const [formValues, setFormValues] = useState([{ email: '' }]);
-  const inputField = useRef(null);
+  const [errorMessage, setErrorMessage] = useState('This Field is required');
+  const [focused, setFocused] = useState(false);
+  const navigate = useNavigate();
 
-  const onBlurChange = (c) => {
-    if (c.value === '') {
-      console.log('empty');
-    } else {
-      console.log('great');
+  const postData = async () => {
+    let values = formValues.map((e) => {
+      return e.email;
+    });
+    let body = {
+      owner: 'owner@gmail.com',
+      emails: values,
+      storeId: 'abc123',
+      cart: [
+        {
+          id: '12321341',
+          quantity: 2,
+        },
+        {
+          id: '4903850',
+          quantity: 1,
+        },
+      ],
+    };
+    try {
+      const response = await axios.post(
+        'https://splitfare-test.onrender.com/createTransaction',
+        body
+      );
+      localStorage.setItem('urlKey', JSON.stringify(response.data.urlId));
+      navigate('/checkout');
+    } catch (error) {
+      return error;
     }
   };
 
   let handleChange = (i, e) => {
+    const { name, value } = e.target;
     let newFormValues = [...formValues];
-    newFormValues[i] = e.target.value;
+    newFormValues[i][name] = value;
     setFormValues(newFormValues);
+  };
+
+  let handleFocus = () => {
+    setErrorMessage('It should be a valid Email');
+    setFocused(true);
+  };
+  let handleBlur = (e) => {
+    setErrorMessage('This Field is required');
+    setFocused(true);
   };
 
   let addFormFields = () => {
@@ -27,7 +64,6 @@ const EmailRequest = () => {
   };
 
   let removeFormFields = (i) => {
-    console.log(i);
     let newFormValues = [...formValues];
     newFormValues.splice(i, 1);
     setFormValues(newFormValues);
@@ -35,7 +71,7 @@ const EmailRequest = () => {
 
   let handleSubmit = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(formValues));
+    postData();
   };
 
   return (
@@ -50,22 +86,28 @@ const EmailRequest = () => {
         <p className="add-text">Add Email</p>
       </AddEmail>
 
-      {formValues?.map((__, index) => (
-        <div className="input-wrapper" key={index}>
-          <InputField
-            placeholder="Enter email"
-            name="email"
-            type="email"
-            ref={inputField}
-            onChange={(e) => handleChange(index, e)}
-            onBlur={() => onBlurChange(inputField.current)}
-          />
-          {index ? (
+      {formValues?.map((singleEmail, index) => (
+        <div className="input-container" key={index}>
+          <div className="input-wrapper">
+            <InputField
+              placeholder="Enter email"
+              name="email"
+              type="email"
+              id="email"
+              value={singleEmail.email}
+              required={true}
+              onFocus={handleFocus}
+              onChange={(e) => handleChange(index, e)}
+              onBlur={handleBlur}
+            />
+            {focused && <span>{errorMessage}</span>}
+          </div>
+          {formValues.length > 1 && (
             <DPIconClose
               className="cancel"
               onClick={() => removeFormFields(index)}
             />
-          ) : null}
+          )}
         </div>
       ))}
 
@@ -88,14 +130,24 @@ const Wrapper = styled.form`
     justify-content: center;
   }
 
-  .input-wrapper {
+  .input-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .input-wrapper {
+      flex: 70%;
+    }
   }
 
   .cancel {
     margin-top: 3rem;
+  }
+  span {
+    font-size: ${FONTSIZES.small};
+    padding: 1rem;
+    color: red;
+    display: none;
   }
 `;
 
@@ -134,4 +186,13 @@ const InputField = styled.input`
   border-radius: 0.9rem;
   margin-top: 3.2rem;
   padding: 1rem;
+  font-size: 2rem;
+
+  &:invalid {
+    border: 1px solid red;
+  }
+
+  &:invalid ~ span {
+    display: block;
+  }
 `;
