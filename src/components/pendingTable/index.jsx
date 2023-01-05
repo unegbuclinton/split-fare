@@ -4,7 +4,7 @@ import {
   FONTSIZES,
   FONTWEIGHTS,
 } from '../../pages/CheckoutPage/constatnts/font-size';
-import Spinner from '../Spinner';
+import Spinner from '../Spinner/Spinner';
 
 const PendingComponent = ({
   loadingState,

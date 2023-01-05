@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DPIconSpinner } from '../icons';
+import { DPIconSpin } from '../../icons';
 
-const Spinner = () => {
+const Spin = () => {
   return (
     <SpinnerContainer>
-      <DPIconSpinner className="spinner" />
+      <DPIconSpin className="spinner" />
     </SpinnerContainer>
   );
 };
 
-export default Spinner;
+export default Spin;
 
 const SpinnerContainer = styled.span`
   .spinner {

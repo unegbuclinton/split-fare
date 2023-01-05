@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { FONTWEIGHTS } from '../../pages/CheckoutPage/constatnts/font-size';
 
-const Button = ({ text, onClick, type }) => {
+const Button = ({ children, onClick, type }) => {
   return (
     <ButtonComp onClick={onClick} type={type}>
-      {text}
+      {children}
     </ButtonComp>
   );
 };

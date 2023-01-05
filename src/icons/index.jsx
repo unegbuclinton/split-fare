@@ -4,6 +4,7 @@ export { ReactComponent as DPIconCardIcon } from '../icons/svgs/Card.svg';
 export { ReactComponent as DPIconClose } from '../icons/svgs/Close.svg';
 export { ReactComponent as DPIcoropDown } from '../icons/svgs/dropdown.svg';
 export { ReactComponent as DPIconOpay } from '../icons/svgs/Opay.svg';
+export { ReactComponent as DPIconSpin } from '../icons/svgs/spin.svg';
 export { ReactComponent as DPIconSpinner } from '../icons/svgs/spinner.svg';
 export { ReactComponent as DPIconSplitLogo } from '../icons/svgs/split-logo.svg';
 export { ReactComponent as DPIconSplit } from '../icons/svgs/split.svg';

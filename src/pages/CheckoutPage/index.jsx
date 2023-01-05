@@ -24,7 +24,7 @@ const Checkout = () => {
 
       <Footer>
         <Link to="/email-request">
-          <Button text="Pay 100.00 $" />
+          <Button>Pay 100.00 $ </Button>
         </Link>
       </Footer>
     </Wrapper>

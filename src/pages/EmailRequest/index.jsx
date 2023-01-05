@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
+import Spin from '../../components/Spin/Spin';
 import { DPIconAddIcon, DPIconClose, DPIconSplitLogo } from '../../icons';
 import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
@@ -10,9 +11,11 @@ const EmailRequest = () => {
   const [formValues, setFormValues] = useState([{ email: '' }]);
   const [errorMessage, setErrorMessage] = useState('This Field is required');
   const [focused, setFocused] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const postData = async () => {
+    setLoading(true);
     let values = formValues.map((e) => {
       return e.email;
     });
@@ -36,8 +39,11 @@ const EmailRequest = () => {
         'https://splitfare-test.onrender.com/createTransaction',
         body
       );
-      localStorage.setItem('urlKey', JSON.stringify(response.data.urlId));
-      navigate('/checkout');
+      if (response) {
+        localStorage.setItem('urlKey', JSON.stringify(response.data.urlId));
+        setLoading(false);
+        navigate('/checkout');
+      }
     } catch (error) {
       return error;
     }
@@ -112,7 +118,7 @@ const EmailRequest = () => {
       ))}
 
       <Footer>
-        <Button type="submit" text="Split Payment" />
+        <Button type="submit">{loading ? <Spin /> : 'Split Payment'}</Button>
       </Footer>
     </Wrapper>
   );
