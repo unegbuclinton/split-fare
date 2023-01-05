@@ -30,4 +30,5 @@ const InputField = styled.input`
   border: none;
   border-radius: 0.6rem;
   padding-left: 5rem;
+  font-size: 2rem;
 `;

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AddEmailContext } from './components/emailContext/EmailContext';
 import ApprovalPage from './pages/Approval';
 import Checkout from './pages/CheckoutPage';
+import Dashboard from './pages/Dashboard';
 import EmailRequest from './pages/EmailRequest';
 
 function App() {
@@ -10,9 +11,10 @@ function App() {
       <AddEmailContext>
         <Router>
           <Routes>
-            <Route exact path="/" element={<Checkout />} />
+            <Route exact path="/Dashboard" element={<Dashboard />} />
+            <Route exact path="/checkout" element={<Checkout />} />
+            <Route exact path="/" element={<EmailRequest />} />
             <Route exact path="/approval" element={<ApprovalPage />} />
-            <Route exact path="/email-request" element={<EmailRequest />} />
           </Routes>
         </Router>
       </AddEmailContext>
