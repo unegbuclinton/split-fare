@@ -16,6 +16,7 @@ const PendingComponent = ({
   const paidAmount = data.amountPaid;
   const totalPrice = data.totalPrice;
   const owedAmount = totalPrice - paidAmount;
+  const NoUserPaid = noOfPaidEmails === 0;
 
   if (loadingState) {
     return (
@@ -28,7 +29,11 @@ const PendingComponent = ({
     <>
       <Emailcontainer>
         {Object?.keys(paidEmails)?.map((i, index) => {
-          return <EmailField key={index}>{paidEmails[i]}</EmailField>;
+          return NoUserPaid ? (
+            <div style={{ color: 'red' }}>No User Has paid yet</div>
+          ) : (
+            <EmailField key={index}>{paidEmails[i]}</EmailField>
+          );
         })}
       </Emailcontainer>
 
