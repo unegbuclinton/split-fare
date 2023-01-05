@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
@@ -8,6 +9,8 @@ import { DPIconAddIcon, DPIconClose, DPIconSplitLogo } from '../../icons';
 import { FONTSIZES } from '../CheckoutPage/constatnts/font-size';
 
 const EmailRequest = () => {
+  const notifySucessful = () => toast.success('Invites Sent.');
+  const notifyError = (err) => toast.error(err);
   const [formValues, setFormValues] = useState([{ email: '' }]);
   const [errorMessage, setErrorMessage] = useState('This Field is required');
   const [focused, setFocused] = useState(false);
@@ -40,12 +43,13 @@ const EmailRequest = () => {
         body
       );
       if (response) {
+        notifySucessful();
         localStorage.setItem('urlKey', JSON.stringify(response.data.urlId));
         setLoading(false);
-        navigate('/checkout');
+        setFormValues([{ email: '' }]);
       }
     } catch (error) {
-      return error;
+      notifyError(error);
     }
   };
 

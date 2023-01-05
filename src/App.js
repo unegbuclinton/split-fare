@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AddEmailContext } from './components/emailContext/EmailContext';
 import ApprovalPage from './pages/Approval';
@@ -8,6 +9,7 @@ import EmailRequest from './pages/EmailRequest';
 function App() {
   return (
     <div className="App">
+      <Toaster position="top-right" />
       <AddEmailContext>
         <Router>
           <Routes>
