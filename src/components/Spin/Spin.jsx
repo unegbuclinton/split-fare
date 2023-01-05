@@ -12,7 +12,7 @@ const Spin = () => {
 
 export default Spin;
 
-const SpinnerContainer = styled.span`
+const SpinnerContainer = styled.div`
   .spinner {
     animation: rotation 0.6s linear infinite;
   }

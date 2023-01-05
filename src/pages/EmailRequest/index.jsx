@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
 import Spin from '../../components/Spin/Spin';
@@ -15,7 +14,6 @@ const EmailRequest = () => {
   const [errorMessage, setErrorMessage] = useState('This Field is required');
   const [focused, setFocused] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const postData = async () => {
     setLoading(true);
@@ -122,7 +120,9 @@ const EmailRequest = () => {
       ))}
 
       <Footer>
-        <Button type="submit">{loading ? <Spin /> : 'Split Payment'}</Button>
+        <Button disabled={loading} type="submit">
+          {loading ? <Spin /> : 'Split Payment'}
+        </Button>
       </Footer>
     </Wrapper>
   );
