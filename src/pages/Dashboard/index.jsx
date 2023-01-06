@@ -38,13 +38,22 @@ const Dashboard = () => {
   const tabs = [
     {
       title: 'Invited',
-      component: <PaymentStatus totalEmail={invited} owner={ownerEmail} />,
+      component: (
+        <PaymentStatus
+          loadingState={loadingState}
+          totalEmailInvited={invited}
+          owner={ownerEmail}
+          paidEmails={paidEmails}
+          data={data}
+          noOfPaidEmails={paidEmails.length}
+          totalEmail={invited.length}
+        />
+      ),
     },
     {
       title: 'Paid',
       component: (
         <PendingComponent
-          loadingState={loadingState}
           paidEmails={paidEmails}
           data={data}
           noOfPaidEmails={paidEmails.length}
