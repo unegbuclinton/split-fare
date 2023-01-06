@@ -23,11 +23,11 @@ const Dashboard = () => {
       axios
         .get(`https://splitfare-test.onrender.com/getTransaction/${url}`)
         .then((res) => {
-          const response = res.data;
+          const response = res?.data;
           setData(response);
-          setPaidEmails(response.emailsPaid);
-          setInvited(response.invites);
-          setOwnerEmail(response.owner);
+          setPaidEmails(response?.emailsPaid);
+          setInvited(response?.invites);
+          setOwnerEmail(response?.owner);
         });
 
       setLoadingState(false);

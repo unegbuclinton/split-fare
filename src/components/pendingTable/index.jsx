@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import {
   FONTSIZES,
@@ -13,6 +14,7 @@ const PendingComponent = ({
   noOfPaidEmails,
   totalEmail,
 }) => {
+  const naviagte = useNavigate();
   const paidAmount = data.amountPaid;
   const totalPrice = data.totalPrice;
   const owedAmount = totalPrice - paidAmount;
@@ -59,8 +61,8 @@ const PendingComponent = ({
         </div>
       </CellWrapper>
       <Footer>
-        <button>Settle Up</button>
-        <button>Cancel</button>
+        <button onClick={() => naviagte('/approval')}>Settle Up</button>
+        <button onClick={() => naviagte('/')}>Cancel</button>
       </Footer>
     </>
   );
