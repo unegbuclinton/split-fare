@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { FONTSIZES } from '../../pages/CheckoutPage/constatnts/font-size';
 
-const PaymentStatus = ({ totalEmail }) => {
+const PaymentStatus = ({ totalEmail, owner }) => {
   return (
     <Wrapper>
+      <EmailField>{owner}</EmailField>
       {Object?.keys(totalEmail)?.map((i, index) => {
         return <EmailField key={index}>{totalEmail[i]}</EmailField>;
       })}

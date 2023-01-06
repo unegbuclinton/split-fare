@@ -50,7 +50,7 @@ const PendingComponent = ({
         <div className="cell">
           <p className="cell-header">Users Paid</p>
           <p className="cell-value">
-            {noOfPaidEmails}/{totalEmail}
+            {noOfPaidEmails}/{totalEmail + 1}
           </p>
         </div>
         <div className="cell">

@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [data, setData] = useState();
   const [loadingState, setLoadingState] = useState(true);
   const [paidEmails, setPaidEmails] = useState([]);
+  const [ownerEmail, setOwnerEmail] = useState(false);
   const [invited, setInvited] = useState([]);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const Dashboard = () => {
           setData(response);
           setPaidEmails(response.emailsPaid);
           setInvited(response.invites);
+          setOwnerEmail(response.owner);
         });
 
       setLoadingState(false);
@@ -36,7 +38,7 @@ const Dashboard = () => {
   const tabs = [
     {
       title: 'Invited',
-      component: <PaymentStatus totalEmail={invited} />,
+      component: <PaymentStatus totalEmail={invited} owner={ownerEmail} />,
     },
     {
       title: 'Paid',
