@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FONTSIZES } from '../../pages/CheckoutPage/constatnts/font-size';
 
-const PaymentStatus = () => {
+const PaymentStatus = ({ totalEmail }) => {
   return (
     <Wrapper>
-      <h1>All Payment have been completed </h1>
+      {Object?.keys(totalEmail)?.map((i, index) => {
+        return <EmailField key={index}>{totalEmail[i]}</EmailField>;
+      })}
     </Wrapper>
   );
 };
@@ -12,8 +15,17 @@ const PaymentStatus = () => {
 export default PaymentStatus;
 
 const Wrapper = styled.div`
-  height: 40vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 2rem;
+  background-color: rgba(88, 168, 248, 0.78);
+  border-radius: 2rem;
+  margin-bottom: 2rem;
+`;
+
+const EmailField = styled.div`
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 0.6rem;
+  font-size: ${FONTSIZES.base};
+  color: #808080;
+  margin-bottom: 1.5rem;
 `;

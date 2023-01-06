@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [loadingState, setLoadingState] = useState(true);
   const [paidEmails, setPaidEmails] = useState([]);
   const [invited, setInvited] = useState([]);
+
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('urlKey'));
     if (items) {
@@ -33,7 +34,10 @@ const Dashboard = () => {
     return () => clearTimeout(timer);
   }, [url]);
   const tabs = [
-    { title: 'Invited', component: <PaymentStatus /> },
+    {
+      title: 'Invited',
+      component: <PaymentStatus totalEmail={invited} />,
+    },
     {
       title: 'Paid',
       component: (

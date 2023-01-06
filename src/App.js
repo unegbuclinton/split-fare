@@ -13,10 +13,10 @@ function App() {
       <AddEmailContext>
         <Router>
           <Routes>
-            <Route exact path="/Dashboard" element={<Dashboard />} />
-            <Route exact path="/checkout" element={<Checkout />} />
+            <Route path="dashboard/:id" element={<Dashboard />} />
+            <Route path="checkout" element={<Checkout />} />
             <Route exact path="/" element={<EmailRequest />} />
-            <Route exact path="/approval" element={<ApprovalPage />} />
+            <Route path="approval" element={<ApprovalPage />} />
           </Routes>
         </Router>
       </AddEmailContext>

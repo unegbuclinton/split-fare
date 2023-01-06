@@ -25,16 +25,17 @@ const PendingComponent = ({
       </SpinnerContainer>
     );
   }
+
   return (
     <>
       <Emailcontainer>
-        {Object?.keys(paidEmails)?.map((i, index) => {
-          return NoUserPaid ? (
-            <div style={{ color: 'red' }}>No User Has paid yet</div>
-          ) : (
-            <EmailField key={index}>{paidEmails[i]}</EmailField>
-          );
-        })}
+        {NoUserPaid ? (
+          <div className="alert">No User Has paid yet</div>
+        ) : (
+          Object?.keys(paidEmails)?.map((i, index) => {
+            return <EmailField key={index}>{paidEmails[i]}</EmailField>;
+          })
+        )}
       </Emailcontainer>
 
       <CellWrapper>
@@ -72,6 +73,12 @@ const Emailcontainer = styled.div`
   background-color: rgba(88, 168, 248, 0.78);
   border-radius: 2rem;
   margin-bottom: 2rem;
+
+  .alert {
+    font-size: ${FONTSIZES.xlarge};
+    font-weight: ${FONTWEIGHTS.medium};
+    color: #fff;
+  }
 `;
 const EmailField = styled.div`
   padding: 1.5rem;

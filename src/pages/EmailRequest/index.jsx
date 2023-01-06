@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Button from '../../components/Button/Index';
 import Spin from '../../components/Spin/Spin';
@@ -14,6 +15,7 @@ const EmailRequest = () => {
   const [errorMessage, setErrorMessage] = useState('This Field is required');
   const [focused, setFocused] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const postData = async () => {
     setLoading(true);
@@ -41,10 +43,11 @@ const EmailRequest = () => {
         body
       );
       if (response) {
+        const urlId = response.data.urlId;
         notifySucessful();
-        localStorage.setItem('urlKey', JSON.stringify(response.data.urlId));
+        localStorage.setItem('urlKey', JSON.stringify(urlId));
         setLoading(false);
-        setFormValues([{ email: '' }]);
+        navigate(`dashboard/${urlId}`);
       }
     } catch (error) {
       notifyError(error);
