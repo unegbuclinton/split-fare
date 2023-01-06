@@ -43,8 +43,8 @@ const EmailRequest = () => {
         body
       );
       if (response) {
-        const urlId = response.data.urlId;
         notifySucessful();
+        const urlId = response.data.urlId;
         localStorage.setItem('urlKey', JSON.stringify(urlId));
         setLoading(false);
         navigate(`dashboard/${urlId}`);
